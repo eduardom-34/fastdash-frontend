@@ -39,10 +39,14 @@ export const uploadFile = async (file: File): Promise<UploadResponse> => {
 
     return data;
   } catch (error) {
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      // Error de red - el servidor no está disponible
+      throw new Error(`No se pudo conectar al servidor. Verifica que el backend esté corriendo en ${API_BASE_URL}`);
+    }
     if (error instanceof Error) {
       throw error;
     }
-    throw new Error('Error de conexión con el servidor. Asegúrate de que el backend esté corriendo en http://localhost:8000');
+    throw new Error('Error de conexión con el servidor. Asegúrate de que el backend esté corriendo');
   }
 };
 
@@ -78,6 +82,10 @@ export const getChartData = async (params: ChartDataParams): Promise<any[]> => {
     const data = await response.json();
     return data;
   } catch (error) {
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      // Error de red - el servidor no está disponible
+      throw new Error(`No se pudo conectar al servidor. Verifica que el backend esté corriendo en ${API_BASE_URL}`);
+    }
     if (error instanceof Error) {
       throw error;
     }
