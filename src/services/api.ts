@@ -14,7 +14,7 @@ export const uploadFile = async (file: File): Promise<UploadResponse> => {
   formData.append('file', file);
 
   try {
-    const response = await fetch(`${API_BASE_URL}/upload`, {
+    const response = await fetch(`${API_BASE_URL}upload`, {
       method: 'POST',
       body: formData,
     });
@@ -65,7 +65,7 @@ export const getChartData = async (params: ChartDataParams): Promise<any[]> => {
   });
 
   try {
-    const response = await fetch(`${API_BASE_URL}/chart-data?${queryParams.toString()}`, {
+    const response = await fetch(`${API_BASE_URL}chart-data?${queryParams.toString()}`, {
       method: 'GET',
     });
 
